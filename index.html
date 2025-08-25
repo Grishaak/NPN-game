@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Escape QTE</title>
+   <script src="./lib/phaser.min.js"></script>
+  <style>
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    canvas {
+      height: auto;
+      max-height: 90%;
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    (function () {
+      const box = document.createElement('pre');
+      box.style.cssText = 'position:fixed;left:8px;bottom:8px;right:8px;max-height:40%;overflow:auto;background:#111;color:#f66;padding:8px;font:12px/1.4 monospace;z-index:99999;white-space:pre-wrap;display:none';
+      document.addEventListener('error', e => {
+        box.style.display = 'block';
+        box.textContent += '[error] ' + (e.message || e.filename || e.target?.src || '') + '\n';
+      }, true);
+      window.addEventListener('error', e => { box.style.display = 'block'; box.textContent += '[error] ' + e.message + '\n'; });
+      window.addEventListener('unhandledrejection', e => { box.style.display = 'block'; box.textContent += '[promise] ' + (e.reason && e.reason.message || e.reason) + '\n'; });
+      document.body.appendChild(box);
+    })();
+  </script>
+  <script type="module" src="./src/main.js"></script>
+</body>
+
+</html>
